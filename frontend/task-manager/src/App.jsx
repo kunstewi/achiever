@@ -1,8 +1,21 @@
 import React from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom"
+
 
 const App = () => {
   return (
-    <div className='text-5xl'>App</div>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+        </Routes>
+      </Router>
+    </div>
   )
 }
 
