@@ -1,7 +1,7 @@
 # Task Manager App
 
 ## Introduction
-his app allows users to manage tasks efficiently with an intuitive interface, create, update, and track tasks with due dates and priorities, automated status updates, and assign tasks to multiple users and track completion etc.
+This app allows users to manage tasks efficiently with an intuitive interface, create, update, and track tasks with due dates and priorities, automated status updates, and assign tasks to multiple users and track completion etc.
 
 ## Features
 1. User Dashboard – View assigned tasks, track progress, and get task insights.
