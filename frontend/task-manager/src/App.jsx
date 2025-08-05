@@ -1,4 +1,11 @@
 import React from 'react'
+import Login from './pages/Auth/Login'
+import SignUp from './pages/Auth/SignUp'
+import Dashboard from './pages/User/Dashboard'
+import ManageTasks from './pages/User/MyTasks'
+import CreateTask from './pages/Admin/CreateTask'
+import ManageUsers from './pages/Admin/ManageUsers'
+import privateRoute from './routes/PrivateRoute'
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,7 +23,7 @@ const App = () => {
 
           {/* Admin Routes */}
           <Route element={<privateRoute allowdRoles={["admin"]} />}>
-
+          
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/tasks" element={<ManageTasks />} />
           <Route path="/admin/create-task" element={<CreateTask />} />
