@@ -95,13 +95,53 @@ const loginUser = async (req, res) => {
 // @access  Private (Requires JWT)
 const getUserProfile = async (req, res) => {
   try {
-    
-  } catch {}
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
 
 // @desc    Update user profile
 // @route   PUT /api/auth/profile
 // @access  Private (Requires JWT)
-const updateUserProfile = async (req, res) => {};
+const updateUserProfile = async (req, res) => {
+  try {
+    const { name, email, profileImageUrl } = req.body;
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if email is being changed and if it's already taken
+    if (email && email !== user.email) {
+      const emailExists = await User.findOne({ email });
+      if (emailExists) {
+        return res.status(400).json({ message: "Email already in use" });
+      }
+      user.email = email;
+    }
+
+    // Update fields
+    if (name) user.name = name;
+    if (profileImageUrl) user.profileImageUrl = profileImageUrl;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      profileImageUrl: updatedUser.profileImageUrl,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 
 module.exports = { registerUser, loginUser, getUserProfile, updateUserProfile };
